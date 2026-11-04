@@ -92,7 +92,7 @@ export default function Landing({ lang }: { lang: Lang }) {
         <div className="pre-inner">
           <img src="/img/logo.png" width={120} height={120} alt="" />
           <span className="pre-count">000</span>
-          <span className="pre-phrase">{t("Holz wächst", "Wood grows")}</span>
+          <span className="pre-phrase">{t("Scannen", "Scanning")}</span>
           <div className="pre-track"><div className="pre-bar" /></div>
         </div>
       </div>

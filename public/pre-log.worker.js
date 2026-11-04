@@ -1,4 +1,4 @@
-// The log behind the preloader: it grows a ring for every bit of the site that loads, then is scanned and sawn into boards.
+// The log behind the preloader: it is scanned while the site loads, then sawn into boards once it is ready.
 // It runs off the main thread so it stays smooth while the page builds its scenes.
 const VS = `#version 300 es
 void main() { vec2 p = vec2(gl_VertexID == 1 ? 3. : -1., gl_VertexID == 2 ? 3. : -1.); gl_Position = vec4(p, 0, 1); }`;
@@ -164,7 +164,8 @@ void main() {
   o = vec4(col, 1);
 }`;
 
-const MIN_LOAD = 3, FINISH = 2.4, HOLD = .3;
+// SCAN: where the film waits for the page, laser down and cut plan drawn, just before the saw
+const MIN_LOAD = 1.5, FINISH = 3, HOLD = .3, SCAN = .43;
 
 let gl, canvas, u, css = { w: 1, h: 1 }, scale = 1, maxScale = 1;
 let target = 0, finished = false, p = 0, f = 0, hold = 0, doneSent = false, sentP = -1, sentF = -1;
@@ -204,8 +205,8 @@ function start(msg) {
   const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255]));
   loadLogo(tex);
-  // Above 1x so edges stay clean on ordinary monitors; the frame loop lowers it on a slow GPU.
-  scale = maxScale = Math.min(Math.max(msg.dpr, 1.25), 1.5);
+  // The frame loop lowers it on a slow GPU.
+  scale = maxScale = Math.min(Math.max(msg.dpr, 1), 1.25); // the GPU is shared with the scenes warming behind it
   resize();
   then = performance.now();
   tick(frame);
@@ -220,11 +221,11 @@ function frame(now) {
       if (++slow > 20) { slow = 0; if (scale > .55) { scale *= .85; resize(); } else return fail(); }
     } else if (dt < .018) { slow = 0; if (++fast > 45 && scale < maxScale) { scale = Math.min(maxScale, scale * 1.15); fast = 0; resize(); } }
   }
-  // The trunk chases real progress at a set pace: work finishes in bursts, a tree does not.
+  // The count chases real progress at a set pace: work finishes in bursts. The trunk is grown from the start.
   if (frozen !== null) { p = 1; f = frozen; finished = false; }
   const goal = finished ? 1 : target;
   if (p < goal) p = Math.min(goal, p + dt / MIN_LOAD);
-  if (finished && p === 1) f = Math.min(1, f + dt / FINISH);
+  f = Math.min(finished && p === 1 ? 1 : Math.max(f, SCAN), f + dt / FINISH);
   if (f === 1 && !doneSent && (hold += dt) > HOLD) { doneSent = true; postMessage({ done: true }); }
   if (Math.round(p * 100) !== sentP || f !== sentF) { sentP = Math.round(p * 100); sentF = f; postMessage({ p: sentP, f }); }
 
@@ -234,7 +235,7 @@ function frame(now) {
   // three-quarter view while it grows, turning to face the board once it is sawn
   const yaw = (.62 + Math.sin(t * .25) * .06) * (1 - settle) + .18 * settle + ptr.x * .35, pitch = .2 + ptr.y * .12 - settle * .08;
   gl.uniform2f(u.uRes, canvas.width, canvas.height);
-  gl.uniform1f(u.uT, t); gl.uniform1f(u.uP, p); gl.uniform1f(u.uF, f);
+  gl.uniform1f(u.uT, t); gl.uniform1f(u.uP, 1); gl.uniform1f(u.uF, f);
   gl.uniform1f(u.uYaw, yaw); gl.uniform1f(u.uPitch, pitch); gl.uniform1f(u.uPulse, ptr.pulse);
   gl.drawArrays(gl.TRIANGLES, 0, 3);
   tick(frame);
