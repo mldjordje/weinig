@@ -15,8 +15,16 @@ export default function Shell({ lang, children }: { lang: "de" | "en"; children:
 }
 
 export const shared = {
+  // the pitch link is pasted into mail, LinkedIn and chat, so it needs a preview card
+  metadataBase: new URL("https://weinig.vercel.app"),
   icons: "/img/logo.png",
   // a private pitch link, never a search result
   robots: { index: false, follow: false },
   alternates: { languages: { de: "/", en: "/en" } },
 };
+
+// title and description go to the tab and the link preview alike
+export const meta = (title: string, description: string, url: string, locale: string) => ({
+  ...shared, title, description,
+  openGraph: { title, description, url, locale, type: "website" as const, siteName: "WEINIG", images: [{ url: "/img/hero-halle.jpg", width: 1600, height: 900 }] },
+});

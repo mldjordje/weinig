@@ -164,7 +164,7 @@ void main() {
   o = vec4(col, 1);
 }`;
 
-const MIN_LOAD = 4.2, FINISH = 3.6, HOLD = .35;
+const MIN_LOAD = 3, FINISH = 2.4, HOLD = .3;
 
 let gl, canvas, u, css = { w: 1, h: 1 }, scale = 1, maxScale = 1;
 let target = 0, finished = false, p = 0, f = 0, hold = 0, doneSent = false, sentP = -1, sentF = -1;

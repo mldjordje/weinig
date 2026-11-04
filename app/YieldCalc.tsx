@@ -27,8 +27,8 @@ export default function YieldCalc({ lang }: { lang: Lang }) {
 
   const rows = [
     { id: "vol", label: t("Rohholz pro Jahr", "Rough timber per year"), value: `${num(volume)} m³`, min: 1000, max: 100000, step: 500, v: volume, set: setVolume },
-    { id: "now", label: t("Ausbeute heute", "Yield today"), value: `${num(now)} %`, min: 40, max: 90, step: 1, v: now, set: setNow },
-    { id: "gain", label: t("Mehr Ausbeute durch Scannen und Optimieren", "Extra yield from scanning and optimising"), value: t(`+${num(gain)} %-Punkte`, `+${num(gain)} points`), min: 1, max: 15, step: 1, v: gain, set: setGain },
+    { id: "now", label: t("Ausbeute heute", "Yield today"), value: `${num(now)} %`, min: 40, max: 90, step: 1, v: now, set: setNow },
+    { id: "gain", label: t("Mehr Ausbeute durch Scannen und Optimieren", "Extra yield from scanning and optimising"), value: t(`+${num(gain)} %-Punkte`, `+${num(gain)} points`), min: 1, max: 15, step: 1, v: gain, set: setGain },
     { id: "price", label: t("Wert von 1 m³ fehlerfreiem Holz", "Value of 1 m³ of clear wood"), value: eur(price), min: 150, max: 1500, step: 10, v: price, set: setPrice },
   ];
 
@@ -58,8 +58,8 @@ export default function YieldCalc({ lang }: { lang: Lang }) {
 
         <div className="calc-out">
           <div className="boards" aria-hidden="true">
-            <div className="board"><span>{t("Heute", "Today")}</span><i style={{ "--y": `${now}%` } as CSSProperties}><b /></i><em>{num(now)} %</em></div>
-            <div className="board"><span>{t("Mit Scanner", "With scanner")}</span><i style={{ "--y": `${now}%`, "--g": `${r.after - now}%` } as CSSProperties}><b /><b className="gain" /></i><em>{num(r.after)} %</em></div>
+            <div className="board"><span>{t("Heute", "Today")}</span><i style={{ "--y": `${now}%` } as CSSProperties}><b /></i><em>{num(now)} %</em></div>
+            <div className="board"><span>{t("Mit Scanner", "With scanner")}</span><i style={{ "--y": `${now}%`, "--g": `${r.after - now}%` } as CSSProperties}><b /><b className="gain" /></i><em>{num(r.after)} %</em></div>
           </div>
           <dl className="calc-result" aria-live="polite">
             <div><dt>{t("Mehr fehlerfreies Holz pro Jahr", "More clear wood per year")}</dt><dd>+{num(r.m3)} m³</dd></div>

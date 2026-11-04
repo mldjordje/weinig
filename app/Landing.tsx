@@ -6,7 +6,7 @@ export type Lang = "de" | "en";
 // Cross-sections of what the lines make, as rectangles [x, y, w, h] in a 60 x 60 box; "x" marks wood cut across the grain.
 const sq = (y: number, h: number, n: number, x0 = 5, w = 50) => Array.from({ length: n }, (_, i) => [x0 + (i * w) / n, y, w / n, h, 1]);
 
-// A glued window scantling, 78 x 68 mm, drawn to scale: three lamellas, their growth rings turned against each other.
+// A glued window scantling, 78 x 68 mm, drawn to scale: three lamellas, their growth rings turned against each other.
 function KantelSection() {
   const X = 11, Y = 16, W = 78, H = 68, h = H / 3;
   return (
@@ -54,9 +54,9 @@ export default function Landing({ lang }: { lang: Lang }) {
   const PORTFOLIO = [
     { step: t("Auftrennen", "Ripping"), line: "SOLID RIP", img: "rip.jpg", fact: t("Bis zu 2 automatisch verstellbare Sägeblätter, beim SOLID RIP V.", "Up to 2 automatically adjustable blades, on the SOLID RIP V."), web: `${WEINIG}/produkte/auftrennsaegen.html` },
     { step: t("Scannen", "Scanning"), line: "SOLID SCAN", img: "scan.jpg", fact: t("Erkennt Holzmerkmale auf bis zu 4 Seiten.", "Detects wood features on up to 4 sides."), film: "#linie", web: `${WEINIG}/produkte/scannersysteme/solid-scan-4000-serie.html` },
-    { step: t("Kappen", "Cross-cutting"), line: "SOLID CUT TF", img: "cut.jpg", fact: t("Sägeblatt Ø 500 mm, Querschnitt bis 160 × 80 mm.", "Ø 500 mm blade, cross-section up to 160 × 80 mm."), film: "#linie", web: `${WEINIG}/produkte/optimierkappsaegen/solid-cut-tf-2000-serie.html` },
-    { step: t("Keilzinken", "Finger-jointing"), line: "SOLID JOINT", img: "joint.jpg", fact: t("Bis zu 200 Teile pro Minute, 28 km in einer 8-Stunden-Schicht.", "Up to 200 pieces a minute, 28 km in one 8-hour shift."), film: "#linie", web: `${WEINIG}/produkte/keilzinkenanlagen.html` },
-    { step: t("Hobeln und Profilieren", "Planing and moulding"), line: "SOLID PROFILE", img: "profile.jpg", fact: t("7.000 U/min und bis zu 15 % mehr Vorschub, beim P 700.", "7,000 rpm and up to 15 % more feed, on the P 700."), film: "#hobeln", web: `${WEINIG}/produkte/hobelmaschinen-und-kehlmaschinen/solid-profile-p-serie.html` },
+    { step: t("Kappen", "Cross-cutting"), line: "SOLID CUT TF", img: "cut.jpg", fact: t("Sägeblatt Ø 500 mm, Querschnitt bis 160 × 80 mm.", "Ø 500 mm blade, cross-section up to 160 × 80 mm."), film: "#linie", web: `${WEINIG}/produkte/optimierkappsaegen/solid-cut-tf-2000-serie.html` },
+    { step: t("Keilzinken", "Finger-jointing"), line: "SOLID JOINT", img: "joint.jpg", fact: t("Bis zu 200 Teile pro Minute, 28 km in einer 8-Stunden-Schicht.", "Up to 200 pieces a minute, 28 km in one 8-hour shift."), film: "#linie", web: `${WEINIG}/produkte/keilzinkenanlagen.html` },
+    { step: t("Hobeln und Profilieren", "Planing and moulding"), line: "SOLID PROFILE", img: "profile.jpg", fact: t("7.000 U/min und bis zu 15 % mehr Vorschub, beim P 700.", "7,000 rpm and up to 15 % more feed, on the P 700."), film: "#hobeln", web: `${WEINIG}/produkte/hobelmaschinen-und-kehlmaschinen/solid-profile-p-serie.html` },
     { step: t("Verleimen", "Gluing"), line: "SOLID PRESS", img: "press.jpg", fact: t("Fünf Baureihen: L, T, C, B und X.", "Five series: L, T, C, B and X."), film: "#kantel", web: `${WEINIG}/produkte/verleimpressen.html` },
     { step: t("Fenster und CNC", "Windows and CNC"), line: "SOLID CNC CR", img: "cnc.png", fact: t("20 bis 85 komplette Fensterrahmen pro Schicht. Über 700 Installationen weltweit.", "20 to 85 complete window frames per shift. More than 700 installations worldwide."), film: "#fenster", web: "https://deals.weinig.com/fensterproduktion" },
     { step: t("Werkzeuge und Schleifen", "Tools and grinding"), line: "SOLID GRIND", img: "grind.jpg", fact: t("Universelle Werkzeug-Schleifmaschinen, dazu PowerLock für schnellen Werkzeugwechsel.", "Universal tool grinders, plus PowerLock for fast tool changes."), web: `${WEINIG}/produkte/werkzeugschleifmaschinen.html` },
@@ -172,22 +172,22 @@ export default function Landing({ lang }: { lang: Lang }) {
               <article>
                 <span className="code"><small>{t("Schritt", "Step")}</small><b>02</b><small>{t("Kappen", "Cross-cut")}</small></span>
                 <h2>{t("Sechs Schnitte, und die Fehler sind draußen.", "Six cuts, and the defects are gone.")}</h2>
-                <p>{t("Fünf Antriebswalzen unten und Druckrollen oben fahren das Brett auf jeden Schnitt. Das Blatt mit Ø 500 mm kommt pneumatisch von unten, Druckluft bläst die Fehlerstücke vom Tisch.", "Five drive rollers below and pressure rollers above move the board to each cut. The Ø 500 mm blade rises pneumatically from below, and compressed air blows the defect pieces off the table.")}</p>
+                <p>{t("Fünf Antriebswalzen unten und Druckrollen oben fahren das Brett auf jeden Schnitt. Das Blatt mit Ø 500 mm kommt pneumatisch von unten, Druckluft bläst die Fehlerstücke vom Tisch.", "Five drive rollers below and pressure rollers above move the board to each cut. The Ø 500 mm blade rises pneumatically from below, and compressed air blows the defect pieces off the table.")}</p>
                 <small>WEINIG SOLID CUT TF 2000</small>
               </article>
               <article>
-                <h2>{t("4 Stücke, 2.250 mm fehlerfreies Holz.", "4 pieces, 2,250 mm of clear wood.")}</h2>
-                <p>{t("Keines ist länger als 700 mm. Genau diese Längen verarbeitet die Keilzinkenanlage.", "None is longer than 700 mm. Exactly the lengths the finger-jointing line takes.")}</p>
+                <h2>{t("4 Stücke, 2.250 mm fehlerfreies Holz.", "4 pieces, 2,250 mm of clear wood.")}</h2>
+                <p>{t("Keines ist länger als 700 mm. Genau diese Längen verarbeitet die Keilzinkenanlage.", "None is longer than 700 mm. Exactly the lengths the finger-jointing line takes.")}</p>
               </article>
               <article>
                 <span className="code"><small>{t("Schritt", "Step")}</small><b>03</b><small>{t("Keilzinken", "Finger joint")}</small></span>
                 <h2>{t("Wo der Ast war, sitzen jetzt Zinken.", "Where the knot was, there are fingers now.")}</h2>
-                <p>{t("Hochkant im Paket laufen die Stücke an Vorritzer und Fräser vorbei, erst rechts, dann links. Danach haben beide Enden 15 mm lange Zinken und Leim.", "Standing on edge in a package, the pieces pass the scoring saw and the cutter, first on the right, then on the left. Both ends now carry 15 mm fingers and glue.")}</p>
+                <p>{t("Hochkant im Paket laufen die Stücke an Vorritzer und Fräser vorbei, erst rechts, dann links. Danach haben beide Enden 15 mm lange Zinken und Leim.", "Standing on edge in a package, the pieces pass the scoring saw and the cutter, first on the right, then on the left. Both ends now carry 15 mm fingers and glue.")}</p>
                 <small>WEINIG SOLID JOINT PS 2000</small>
               </article>
               <article>
                 <h2>{t("Aus kurzen Stücken wird eine endlose Lamelle.", "Short pieces become an endless lamella.")}</h2>
-                <p>{t("Die Presse schiebt die Zinken ineinander. Bis zu 200 Teile pro Minute, bis 6,1 m Ausgangslänge. Als Nächstes läuft die Lamelle in den Hobel.", "The press pushes the fingers together. Up to 200 pieces a minute, up to 6.1 m output length. Next, the lamella runs into the planer.")}</p>
+                <p>{t("Die Presse schiebt die Zinken ineinander. Bis zu 200 Teile pro Minute, bis 6,1 m Ausgangslänge. Als Nächstes läuft die Lamelle in den Hobel.", "The press pushes the fingers together. Up to 200 pieces a minute, up to 6.1 m output length. Next, the lamella runs into the planer.")}</p>
                 <small>{schematic}</small>
               </article>
             </div>
@@ -203,7 +203,7 @@ export default function Landing({ lang }: { lang: Lang }) {
             <div className="panels">
               <article>
                 <h2>{t("Vier Seiten in einem Durchgang.", "Four sides in one pass.")}</h2>
-                <p>{t("Aus der Keilzinkung kommt eine endlose Lamelle, aber noch sägerau: 140 × 45 mm, mit einer Keilzinkung alle gut 50 cm. Der SOLID PROFILE P 700 hobelt sie in einem Durchlauf auf allen vier Seiten.", "The finger-jointer delivers an endless lamella, still rough-sawn: 140 × 45 mm, with a finger joint every 50 cm or so. The SOLID PROFILE P 700 planes all four sides in one pass.")}</p>
+                <p>{t("Aus der Keilzinkung kommt eine endlose Lamelle, aber noch sägerau: 140 × 45 mm, mit einer Keilzinkung alle gut 50 cm. Der SOLID PROFILE P 700 hobelt sie in einem Durchlauf auf allen vier Seiten.", "The finger-jointer delivers an endless lamella, still rough-sawn: 140 × 45 mm, with a finger joint every 50 cm or so. The SOLID PROFILE P 700 planes all four sides in one pass.")}</p>
                 <small>WEINIG SOLID PROFILE P 700</small>
               </article>
               <article>
@@ -213,14 +213,14 @@ export default function Landing({ lang }: { lang: Lang }) {
               </article>
               <article>
                 <span className="code"><small>{t("Schritt", "Step")}</small><b>05</b><small>{t("Auf Maß", "To size")}</small></span>
-                <h2>{t("Aus 140 × 45 werden 132 × 40 mm.", "140 × 45 becomes 132 × 40 mm.")}</h2>
+                <h2>{t("Aus 140 × 45 werden 132 × 40 mm.", "140 × 45 becomes 132 × 40 mm.")}</h2>
                 <p>{t("Die linke Spindel hobelt auf Breite, die obere auf Dicke. Vorschubwalzen drücken das Holz dabei auf den Tisch.", "The left spindle planes to width, the top one to thickness. Feed rollers hold the wood down on the table.")}</p>
               </article>
               <article>
                 <span className="code"><small>{t("Schritt", "Step")}</small><b>06</b><small>{t("Profilieren", "Moulding")}</small></span>
                 <h2>{t("Das Messer ist das Negativ des Profils.", "The knife is the profile's negative.")}</h2>
-                <p>{t("Wo das Profil tief ist, steht das Messer weit vor. Beim P 700 laufen die Spindeln standardmäßig mit 7.000 U/min. Das erlaubt bis zu 15 % mehr Vorschub als bei herkömmlichen Kehlmaschinen.", "Where the profile is deep, the knife reaches far out. On the P 700 the spindles run at 7,000 rpm as standard. That allows up to 15 % more feed than conventional moulders.")}</p>
-                <small>{t("Optional 8.000 U/min", "8,000 rpm optional")}</small>
+                <p>{t("Wo das Profil tief ist, steht das Messer weit vor. Beim P 700 laufen die Spindeln standardmäßig mit 7.000 U/min. Das erlaubt bis zu 15 % mehr Vorschub als bei herkömmlichen Kehlmaschinen.", "Where the profile is deep, the knife reaches far out. On the P 700 the spindles run at 7,000 rpm as standard. That allows up to 15 % more feed than conventional moulders.")}</p>
+                <small>{t("Optional 8.000 U/min", "8,000 rpm optional")}</small>
               </article>
               <article>
                 <h2>{t("Anderes Profil, anderes Werkzeug.", "Another profile, another tool.")}</h2>
@@ -358,9 +358,9 @@ export default function Landing({ lang }: { lang: Lang }) {
         </section>
 
         <section className="lower werte" id="werte">
-          <h2 className="reveal">{t("Fünfmal 100 %.", "100 %, five times.")}</h2>
+          <h2 className="reveal">{t("Fünfmal 100 %.", "100 %, five times.")}</h2>
           <ul className="values">
-            {VALUES.map(([title, d]) => <li key={title}><b>100 % {title}</b><span>{d}</span></li>)}
+            {VALUES.map(([title, d]) => <li key={title}><b>100 % {title}</b><span>{d}</span></li>)}
           </ul>
         </section>
 
