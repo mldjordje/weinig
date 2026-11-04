@@ -50,16 +50,16 @@ export default function Landing({ lang }: { lang: Lang }) {
     [t("Auftragsabwicklung", "Project execution"), t("Als Generalunternehmer oder als Systemintegrator, nach Ihrer Wahl.", "As general contractor or as system integrator, your choice.")],
     [t("Produktionsbegleitung", "Production support"), t("Ein Projektleiter bleibt bis zum Ende der Gewährleistung Ihr Ansprechpartner.", "One project manager stays your contact until the warranty ends.")],
   ];
-  // the portfolio in the order the wood meets it; machines shown in the films above link back to them
+  // the catalogue in the order the wood meets it; each card carries one figure WEINIG publishes, and machines in the films link back to them
   const PORTFOLIO = [
-    { step: t("Auftrennen", "Ripping"), line: "SOLID RIP, SOLID SPLIT", href: `${WEINIG}/produkte/auftrennsaegen.html` },
-    { step: t("Scannen", "Scanning"), line: "SOLID SCAN", href: "#linie" },
-    { step: t("Kappen", "Cross-cutting"), line: "SOLID CUT", href: "#linie" },
-    { step: t("Keilzinken", "Finger-jointing"), line: "SOLID JOINT", href: "#linie" },
-    { step: t("Hobeln und Profilieren", "Planing and moulding"), line: "SOLID PROFILE", href: "#hobeln" },
-    { step: t("Verleimen", "Gluing"), line: "SOLID PRESS", href: `${WEINIG}/produkte/verleimpressen.html` },
-    { step: t("Fenster und CNC", "Windows and CNC"), line: "SOLID CNC CR, Vario MC 50", href: "#fenster" },
-    { step: t("Werkzeuge und Schleifen", "Tools and grinding"), line: "SOLID GRIND, PowerLock", href: `${WEINIG}/produkte/werkzeugschleifmaschinen.html` },
+    { step: t("Auftrennen", "Ripping"), line: "SOLID RIP", img: "rip.jpg", fact: t("Bis zu 2 automatisch verstellbare Sägeblätter, beim SOLID RIP V.", "Up to 2 automatically adjustable blades, on the SOLID RIP V."), web: `${WEINIG}/produkte/auftrennsaegen.html` },
+    { step: t("Scannen", "Scanning"), line: "SOLID SCAN", img: "scan.jpg", fact: t("Erkennt Holzmerkmale auf bis zu 4 Seiten.", "Detects wood features on up to 4 sides."), film: "#linie", web: `${WEINIG}/produkte/scannersysteme/solid-scan-4000-serie.html` },
+    { step: t("Kappen", "Cross-cutting"), line: "SOLID CUT TF", img: "cut.jpg", fact: t("Sägeblatt Ø 500 mm, Querschnitt bis 160 × 80 mm.", "Ø 500 mm blade, cross-section up to 160 × 80 mm."), film: "#linie", web: `${WEINIG}/produkte/optimierkappsaegen/solid-cut-tf-2000-serie.html` },
+    { step: t("Keilzinken", "Finger-jointing"), line: "SOLID JOINT", img: "joint.jpg", fact: t("Bis zu 200 Teile pro Minute, 28 km in einer 8-Stunden-Schicht.", "Up to 200 pieces a minute, 28 km in one 8-hour shift."), film: "#linie", web: `${WEINIG}/produkte/keilzinkenanlagen.html` },
+    { step: t("Hobeln und Profilieren", "Planing and moulding"), line: "SOLID PROFILE", img: "profile.jpg", fact: t("7.000 U/min und bis zu 15 % mehr Vorschub, beim P 700.", "7,000 rpm and up to 15 % more feed, on the P 700."), film: "#hobeln", web: `${WEINIG}/produkte/hobelmaschinen-und-kehlmaschinen/solid-profile-p-serie.html` },
+    { step: t("Verleimen", "Gluing"), line: "SOLID PRESS", img: "press.jpg", fact: t("Fünf Baureihen: L, T, C, B und X.", "Five series: L, T, C, B and X."), film: "#kantel", web: `${WEINIG}/produkte/verleimpressen.html` },
+    { step: t("Fenster und CNC", "Windows and CNC"), line: "SOLID CNC CR", img: "cnc.png", fact: t("20 bis 85 komplette Fensterrahmen pro Schicht. Über 700 Installationen weltweit.", "20 to 85 complete window frames per shift. More than 700 installations worldwide."), film: "#fenster", web: "https://deals.weinig.com/fensterproduktion" },
+    { step: t("Werkzeuge und Schleifen", "Tools and grinding"), line: "SOLID GRIND", img: "grind.jpg", fact: t("Universelle Werkzeug-Schleifmaschinen, dazu PowerLock für schnellen Werkzeugwechsel.", "Universal tool grinders, plus PowerLock for fast tool changes."), web: `${WEINIG}/produkte/werkzeugschleifmaschinen.html` },
   ];
   const DIGITAL = [
     ["App Suite", t("Echtzeit-Monitoring des Maschinenparks und ein direkter Draht zum Service.", "Live monitoring of the machine park and a direct line to service.")],
@@ -316,22 +316,24 @@ export default function Landing({ lang }: { lang: Lang }) {
 
         <section className="lower produkte" id="produkte">
           <h2 className="reveal">{t("Für jeden Schritt eine Maschine.", "A machine for every step.")}</h2>
-          <ul className="portfolio">
+          <ol className="catalog">
             {PORTFOLIO.map((r) => (
               <li key={r.step}>
-                <span className="step">{r.step}</span>
-                <span className="family">{r.line}</span>
-                {r.href.startsWith("#")
-                  ? <a href={r.href}>{t("Oben im Film", "In the film above")}<span className="sr">: {r.step}</span></a>
-                  : <a href={r.href} target="_blank" rel="noopener">{t("Auf weinig.de", "On weinig.de")}<span className="sr">: {r.step}</span></a>}
+                <figure><img src={`/img/produkte/${r.img}`} alt={`WEINIG ${r.line}`} width={480} height={270} loading="lazy" /></figure>
+                <span className="cat-step">{r.step}</span>
+                <h3>{r.line}</h3>
+                <p>{r.fact}</p>
+                <span className="cat-links">
+                  {r.film && <a href={r.film}>{t("Im Film", "In the film")}<span className="sr">: {r.line}</span></a>}
+                  <a href={r.web} target="_blank" rel="noopener">weinig.de<span className="sr">: {r.line}</span></a>
+                </span>
               </li>
             ))}
-            <li>
-              <span className="step">{t("Holzwerkstoffe", "Wood-based panels")}</span>
-              <span className="family">{t("HOLZ-HER: Kantenanleimen, CNC, Plattensägen", "HOLZ-HER: edge banding, CNC, panel saws")}</span>
-              <span className="note">{t("Marke der WEINIG Gruppe", "A WEINIG Group brand")}</span>
-            </li>
-          </ul>
+          </ol>
+          <div className="catalog-foot">
+            <p><b>HOLZ-HER</b> {t("ist die Marke der WEINIG Gruppe für Holzwerkstoffe: Kantenanleimen, CNC und Plattensägen.", "is the WEINIG Group brand for wood-based panels: edge banding, CNC and panel saws.")}</p>
+            <a className="btn calc-cta" href="#kontakt">{t("Welche Maschine passt zu Ihrem Holz?", "Which machine suits your wood?")}</a>
+          </div>
         </section>
 
         <section className="lower service" id="service">
