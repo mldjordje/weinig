@@ -6,6 +6,28 @@ export type Lang = "de" | "en";
 // Cross-sections of what the lines make, as rectangles [x, y, w, h] in a 60 x 60 box; "x" marks wood cut across the grain.
 const sq = (y: number, h: number, n: number, x0 = 5, w = 50) => Array.from({ length: n }, (_, i) => [x0 + (i * w) / n, y, w / n, h, 1]);
 
+// A glued window scantling, 78 x 68 mm, drawn to scale: three lamellas, their growth rings turned against each other.
+function KantelSection() {
+  const X = 11, Y = 16, W = 78, H = 68, h = H / 3;
+  return (
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <defs>{[0, 1, 2].map((k) => <clipPath id={`lam${k}`} key={k}><rect x={X} y={Y + k * h} width={W} height={h} /></clipPath>)}</defs>
+      {[0, 1, 2].map((k) => {
+        // the pith sits outside each lamella, below one and above the next
+        const cy = k % 2 ? Y + k * h - 26 : Y + (k + 1) * h + 26;
+        return (
+          <g key={k} clipPath={`url(#lam${k})`}>
+            <rect className="lam" x={X} y={Y + k * h} width={W} height={h} />
+            {Array.from({ length: 12 }, (_, r) => <circle key={r} className="ring" cx={50 + (k - 1) * 9} cy={cy} r={28 + r * 4.2} />)}
+          </g>
+        );
+      })}
+      {[1, 2].map((k) => <line key={k} className="glue" x1={X} x2={X + W} y1={Y + k * h} y2={Y + k * h} />)}
+      <rect className="edge" x={X} y={Y} width={W} height={H} />
+    </svg>
+  );
+}
+
 // Every text sits next to its translation, so the two pages cannot drift apart.
 export default function Landing({ lang }: { lang: Lang }) {
   const en = lang === "en";
@@ -172,6 +194,8 @@ export default function Landing({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        <YieldCalc lang={lang} />
+
         <section className="pinwrap" id="hobeln">
           <div className="stage planer-stage">
             <canvas className="gl" aria-hidden="true" />
@@ -212,13 +236,32 @@ export default function Landing({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        {/* between the planer and the window: how a planed lamella becomes window timber */}
+        <section className="lower kantel" id="kantel">
+          <div className="split">
+            <div>
+              <h2 className="reveal">{t("Drei Lamellen, eine Fensterkantel.", "Three lamellas, one window scantling.")}</h2>
+              <p className="lede">{t("Fensterholz muss jahrzehntelang gerade bleiben. Deshalb wird es nicht aus einem Stück geschnitten, sondern aus gehobelten Lamellen verleimt, die Jahresringe gegeneinander gedreht.", "Window timber has to stay straight for decades. So it is not cut from one piece but glued from planed lamellas, with the growth rings turned against each other.")}</p>
+              <ul className="kantel-facts">
+                <li><b>3</b><span>{t("Lamellen, keilgezinkt und gehobelt wie oben im Film.", "lamellas, finger-jointed and planed as in the film above.")}</span></li>
+                <li><b>78 × 68</b><span>{t("mm Querschnitt. Daraus fräst die CNC gleich einen Fensterflügel.", "mm cross-section. The CNC mills a window sash from it next.")}</span></li>
+                <li><b>SOLID PRESS</b><span>{t("Verleimpressen von WEINIG.", "Glue presses from WEINIG.")} <a href={`${WEINIG}/produkte/verleimpressen.html`} target="_blank" rel="noopener">{t("Auf weinig.de", "On weinig.de")}</a></span></li>
+              </ul>
+            </div>
+            <figure className="kantel-fig">
+              <KantelSection />
+              <figcaption>{t("Querschnitt der Kantel. Die dunklen Linien sind die Leimfugen.", "Cross-section of the scantling. The dark lines are the glue lines.")}</figcaption>
+            </figure>
+          </div>
+        </section>
+
         <section className="pinwrap" id="fenster">
           <div className="stage window-stage">
             <canvas className="gl" aria-hidden="true" />
             <div className="panels">
               <article>
                 <h2>{t("Ein Fenster, ab Losgröße 1.", "A window, from batch size 1.")}</h2>
-                <p>{t("Ein Flügel braucht vier Kanteln, jede aus drei Lamellen verleimt. Die SOLID CNC CR macht daraus fertige Rahmenteile, auch wenn nur ein einziges Fenster bestellt ist.", "A sash needs four scantlings, each glued from three lamellas. The SOLID CNC CR turns them into finished frame parts, even when only one window is on order.")}</p>
+                <p>{t("Ein Flügel braucht vier dieser Kanteln. Die SOLID CNC CR macht daraus fertige Rahmenteile, auch wenn nur ein einziges Fenster bestellt ist.", "A sash needs four of these scantlings. The SOLID CNC CR turns them into finished frame parts, even when only one window is on order.")}</p>
                 <small>WEINIG SOLID CNC CR 400 V</small>
               </article>
               <article>
@@ -245,8 +288,6 @@ export default function Landing({ lang }: { lang: Lang }) {
             </div>
           </div>
         </section>
-
-        <YieldCalc lang={lang} />
 
         <section className="lower systeme" id="systeme">
           <div className="split">
